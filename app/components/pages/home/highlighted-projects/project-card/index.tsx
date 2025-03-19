@@ -10,7 +10,7 @@ export const ProjectsCard = () => {
         <Image
           width={420}
           height={404}
-          src="/images/profile-pic.png"
+          src="/images/pirateLanguage.png"
           alt="Thumbnail do projeto"
           className="w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full object-cover rounded-lg"
         />
@@ -37,7 +37,7 @@ export const ProjectsCard = () => {
           <TechBadge name="Next.Js" />
           <TechBadge name="Next.Js" />
         </div>
-        <Link href="/projects/book-wise">
+        <Link href="/projects/pirate-language">
             Ver Projeto
             <HiArrowNarrowRight/>
         </Link>
