@@ -14,7 +14,7 @@ export const BackToTop = () => {
     if (!show && window.scrollY > 500) setShow(true)
     if (show && window.scrollY <= 500) setShow(false)
   }, [show])
- 
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
@@ -27,6 +27,6 @@ export const BackToTop = () => {
           <TbArrowNarrowUp size={20} />
         </Button>
       ) : null}
-    </div>
+    </div>  
   )
 }
