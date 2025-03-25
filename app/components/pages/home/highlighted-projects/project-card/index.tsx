@@ -1,17 +1,22 @@
 import { Link } from "@/app/components/link";
 import { TechBadge } from "@/app/components/tech-badge";
+import { Project } from "@/app/types/projects";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
-export const ProjectsCard = () => {
+type ProjectsCardProps = {
+  project: Project
+}
+
+export const ProjectsCard = ({ project }: ProjectsCardProps) => {
   return (
     <div className="flex gap-6 lg:gap-12 flex-col lg:flex-row">
       <div className="w-full h-full">
         <Image
           width={420}
           height={404}
-          src="/images/pirateLanguage.png"
-          alt="Thumbnail do projeto"
+          src={project.thumbnail.url}
+          alt={`Thumbnail do Projeto ${project.title}`}
           className="w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full object-cover rounded-lg"
         />
       </div>
@@ -23,21 +28,17 @@ export const ProjectsCard = () => {
             alt=""
             src="/images/icons/project-title-icon.svg"
           />
-          Linguagem dos Piratas
+          {project.title}
         </h3>
         <p className="text-gray-400 my-6">
-          Pirate language, nada mais é que um google tradutor porém da linguagem
-          dos piratas, o texto é escrito em ingles continua em ingles porém, de
-          forma que os piratas falavam a ideia é essa
+          {project.shortDescription}
         </p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg?max-w-[350px] ">
-          <TechBadge name="Next.Js" />
-          <TechBadge name="Next.Js" />
-          <TechBadge name="Next.Js" />
-          <TechBadge name="Next.Js" />
-          <TechBadge name="Next.Js" />
+          {project.technologies.map(tech => (
+            <TechBadge key={`${project.title}-tech-${tech.name}`} name={tech.name} />
+          ))}
         </div>
-        <Link href="/projects/pirate-language">
+        <Link href={`/projects/${project.slug}`}>
             Ver Projeto
             <HiArrowNarrowRight/>
         </Link>

@@ -9,41 +9,37 @@ const getPageData = async (): Promise<HomePageData> => {
   const query = `
     query PageInfoQuery {
       page(where: {slug: "home"}) {
-        introduction {
-          raw
-        }
-        technology{
-          name
-        }
-        profilePicture {
-          url
-        }
-        socials {
-          url
-          iconSvg
-        }
-        knownTechs {
-          iconSvg
-          name
-          startDate
+        introduction { raw }
+        technology { name }
+        profilePicture { url }
+        socials { url iconSvg }
+        knownTechs { iconSvg name startDate }
+        highlightProjects {
+          slug
+          thumbnail { url }
+          title
+          shortDescription
+          technologies { name }
         }
       }
     }
-  `
+  `;
 
-  return fetchHygraphQuery(
-    query,
-    60 * 60 * 24 //24h
-  )
-}
+  const data = await fetchHygraphQuery(query, 60 * 60 * 24);
+
+  console.log("Dados retornados de fetchHygraphQuery:", data); // Debug
+
+  return data ?? {}; // Evita retornar null
+};
 
 export default async function Home() {
   const { page: pageData } = await getPageData()  
+
   return (
     <>
       <HeroSection homeInfo={pageData} />
-      <KnownTechs/> 
-      <HighlightedProjects/>
+      <KnownTechs techs={pageData.knownTechs}/> 
+      <HighlightedProjects projects={pageData.highlightProjects} />
       <WorkExperience/>
     </>
   )
