@@ -6,6 +6,7 @@ import { HomePageData } from "./types/page-info";
 import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 
 const getPageData = async (): Promise<HomePageData> => {
+
   const query = `
     query PageInfoQuery {
       page(where: {slug: "home"}) {
@@ -25,15 +26,20 @@ const getPageData = async (): Promise<HomePageData> => {
     }
   `;
 
-  const data = await fetchHygraphQuery(query, 60 * 60 * 24);
 
-  console.log("Dados retornados de fetchHygraphQuery:", data); // Debug
+  return fetchHygraphQuery(
+    query,
+    1000 * 60 * 60 * 24, // 1 day
+  )
+}
 
-  return data ?? {}; // Evita retornar null
-};
 
 export default async function Home() {
-  const { page: pageData } = await getPageData()  
+  console.log(getPageData)
+  const { page: pageData } = await getPageData()   
+
+
+
 
   return (
     <>
